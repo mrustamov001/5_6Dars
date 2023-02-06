@@ -1,7 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 const ProductsCard = ({ products }) => {
+
+    const dispatch = useDispatch()
+
+    function handleAddToCart(product) {
+        dispatch({ type: "ADD_TO_CART", payload: product });
+    }
+
     return (
         <div className='row g-3'>
             {products.map((product) => (
@@ -19,9 +27,9 @@ const ProductsCard = ({ products }) => {
                                         <i className="fa-solid fa-star text-warning"></i> {product.rating.rate} / {product.rating.count}
                                     </span>
                                 </div>
-                                <p className='product-description my-3'>
+                                <span className='product-description my-3'>
                                     {product.description}
-                                </p>
+                                </span>
                             </div>
                             <div className="d-flex gap-1">
                                 <Link
@@ -30,8 +38,12 @@ const ProductsCard = ({ products }) => {
                                 >
                                     Read More
                                 </Link>
-                                <button className='btn btn-success col-6'>
-                                    Buy Now
+                                <button onClick={() => handleAddToCart(product)} className='position-relative btn btn-success col-6'>
+                                    Add To Cart
+                                    <span className="position-absolute top-0 start-100 right-2 translate-middle badge rounded-pill bg-danger">
+                                        
+                                        <span className="visually-hidden">unread messages</span>
+                                    </span>
                                 </button>
                             </div>
                         </div>

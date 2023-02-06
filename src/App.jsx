@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom"
 import Redirect from "./Components/Redirect"
+import Cart from "./Pages/cart"
 import Details from "./Pages/details"
 import Home from "./Pages/home"
 import Login from "./Pages/login"
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/details/:id" element={<Details />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<Cart /> } />
         <Route path="*" element={<Redirect />} />
       </Routes>
     </div>
