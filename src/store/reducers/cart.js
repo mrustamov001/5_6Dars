@@ -5,19 +5,6 @@ let initialState = {
 
 function cartReducer(state = initialState, action) {
     switch (action.type) {
-        case "ADD_TO_CART": {
-            return {
-                ...state,
-                items: [
-                    ...state.items,
-                    {
-                        product: action.payload,
-                        count: 1,
-                    }
-                ],
-            };
-        }
-
         // case "ADD_TO_CART": {
         //     return {
         //         ...state,
@@ -30,6 +17,31 @@ function cartReducer(state = initialState, action) {
         //         ],
         //     };
         // }
+
+        case "ADD_TO_CART": {
+            const item = state.items.find((i) => i.product.id === action.payload.id)
+            if (item) {
+                return {
+                    ...state,
+                    items: state.items.map((i) => {
+                        return i.product.id === action.payload.id ? { ...i, count: i.count + 1 } : i
+                    })
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    items: [
+                        ...state.items,
+                        {
+                            product: action.payload,
+                            count: 1,
+                        }
+                    ],
+                };
+
+            }
+        }
 
         case "INC_ITEM_COUNT": {
             return {
